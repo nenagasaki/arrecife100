@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrecife 100 — Reto de supervivencia</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+</head>
+<body>
+  <main class="layout">
+    <header class="header">
+      <div class="brand">
+        <span class="kicker">ODS 14: VIDA SUBMARINA</span>
+        <h1>arrecife <span> </span>100</h1>
+      </div>
+      <p class="intro">Protege el arrecife durante 60 segundos. Ajusta la población y la contaminación a tu ritmo.</p>
+    </header>
+
+    <section class="gamebar">
+      <div class="timer-block">
+        <span class="label">TIEMPO RESTANTE</span>
+        <strong id="timer">01:00</strong>
+      </div>
+      <div class="progress-track"><div id="time-progress"></div></div>
+      <div class="game-actions">
+        <button id="start-btn">Iniciar reto</button>
+        <button id="pause-btn" class="quiet">Pausar</button>
+        <button id="reset-btn" class="quiet">Reiniciar</button>
+        <button id="settings-btn" class="quiet" aria-expanded="false" aria-controls="settings-panel">⚙ Configuración</button>
+      </div>
+    </section>
+
+    <section class="settings-panel" id="settings-panel" hidden>
+      <div class="settings-heading">
+        <div><span class="kicker">AJUSTES DEL ARRECIFE</span><h2>Configura tu partida</h2></div>
+        <button id="close-settings" class="quiet" aria-label="Cerrar configuración">Cerrar</button>
+      </div>
+      <div class="settings-grid">
+        <label class="setting">
+          <span>Cantidad de peces <strong id="fish-setting-value">100</strong></span>
+          <input id="fish-setting" type="range" min="20" max="150" step="10" value="100">
+          <small>Entre 20 y 150 peces</small>
+        </label>
+        <label class="setting">
+          <span>Dificultad de basura <strong id="trash-setting-value">Media</strong></span>
+          <input id="trash-setting" type="range" min="1" max="3" step="1" value="2">
+          <small id="trash-setting-help">Reto equilibrado</small>
+        </label>
+        <label class="setting">
+          <span>Duración <strong id="duration-setting-value">60 s</strong></span>
+          <input id="duration-setting" type="range" min="30" max="120" step="15" value="60">
+          <small>De 30 a 120 segundos</small>
+        </label>
+      </div>
+      <p class="settings-footnote">Los cambios se aplican al reiniciar la partida.</p>
+      <button id="apply-settings">Aplicar ajustes y reiniciar</button>
+    </section>
+
+    <section class="canvas-wrap">
+      <div id="canvas-holder"></div>
+      <div class="canvas-note"><span class="dot"></span><span id="game-status">PREPARADO</span></div>
+      <div class="canvas-hint" id="canvas-hint">Pulsa «Iniciar reto» para comenzar</div>
+      <div class="game-over-overlay" id="game-over-overlay" hidden><div class="game-over-card"><span class="kicker">ARRECIFE 100 / SUPERVIVENCIA</span><h2 id="overlay-title">GAME OVER</h2><p id="overlay-copy">Ya no quedan peces en el arrecife.</p><div class="overlay-stats"><span>Peces supervivientes</span><strong id="overlay-survivors">0</strong><span>Residuos retirados</span><strong id="overlay-removed">0</strong></div><button id="game-over-restart">Intentar de nuevo</button></div></div>
+    </section>
+
+    <div class="legend"><span><i class="legend-dot trash"></i> Residuos: clic para retirar</span><span><i class="legend-dot turbine"></i> Turbinas: zona de riesgo</span><span><i class="legend-dot oil"></i> Aceite: desviación del movimiento</span></div>
+
+    <section class="controls">
+      <div class="stat"><span>PECES VIVOS</span><strong id="fish-count">100</strong></div>
+      <div class="stat"><span>RESIDUOS RETIRADOS</span><strong id="removed-count">0</strong></div>
+      <div class="stat"><span>PECES PERDIDOS</span><strong id="lost-count">0</strong></div>
+      <div class="stat best"><span>MEJOR RÉCORD</span><strong id="best-score">—</strong></div>
+    </section>
+
+    <section class="result" id="result-panel" hidden>
+      <div>
+        <span class="kicker">FIN DEL RETO</span>
+        <h2 id="result-title">¡Arrecife protegido!</h2>
+        <p id="result-copy">Lograste mantener a salvo a muchos peces.</p>
+      </div>
+      <div class="result-score"><strong id="final-score">100</strong><span>PECES SALVADOS</span></div>
+      <button id="play-again">Volver a jugar</button>
+    </section>
+
+    <footer>
+      <span>Haz clic en cada residuo para retirarlo.</span>
+      <span>La dificultad se ajusta en Configuración.</span>
+      <span>Retira residuos con clic; los peces evitan obstáculos y exploran el agua.</span>
+    </footer>
+  </main>
+  <script src="sketch.js"></script>
+</body>
+</html>
